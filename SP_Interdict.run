@@ -1,0 +1,18 @@
+#---------RUN FILE----------------
+reset;
+model SP_Interdict.mod;
+data SPI_5_5.dat;
+#option solver cplex;
+option solver cplexamp;
+option show_stats 1;
+option cplex_options 'mipdisplay=4 mipinterval=2';#Extent to which display B&B Search info
+solve;
+
+option omit_zero_rows 1;# Do not display variables that have 0 values
+option omit_zero_cols 1;# Do not display variables that have 0 values
+display _total_solve_time>SP_Interdict.txt;#Display the total CPU time
+display Longest_shortest_path>SP_Interdict.txt;
+display Interdict>SP_Interdict.txt;
+display Dual>SP_Interdict.txt;
+close >SP_Interdict.txt;
+#---------END OF RUN FILE----------------
